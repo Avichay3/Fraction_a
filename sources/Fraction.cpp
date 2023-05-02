@@ -1,153 +1,184 @@
 #include "Fraction.hpp"
-#include <iostream>
-using namespace std ; 
+#include <algorithm>
+#include <cmath>
+using namespace ariel;
+using namespace std;
+#define MAX_NUM 1000000
 
-
-// constructor
-Fraction::Fraction(int numerator, int denominator) : mone(numerator) , mechane(denominator){ //using initialization list
+Fraction::Fraction(int numerator, int denominator) : mone(numerator), mechane(denominator){ //main constructor
     if(denominator == 0){
-        throw invalid_argument ("fraction can`t be divided by the number 0");
+        throw invalid_argument("Fraction can't be divided by zero");
     }
-} 
+}
 
-//another constructor that take a float and convert it to fraction
 Fraction::Fraction(float num){
-    int sign = 0;
-    if (num < 0){
-        sign = -1;
+     // Convert the float to a fraction
+    int sign = (num < 0) ? -1 : 1;
+    int whole = floor(num);
+    num -= whole;
+    int val = round(num * MAX_NUM);
+    int den = MAX_NUM;
+
+    // Add the whole part if there is one
+    if (whole != 0) {
+        val += whole * den;
     }
-    else{
-        sign = 1;
-    }
-    num = std::abs(num); //take the absolute value of num
-    int val = static_cast<int>(num); // cast the float to int and save it in val
-    int denominator = 1; //initial denominator
-    while(val != num){  //loops until the fractional part become 0;
-        num = num * 10;
-        val = static_cast<int>(num);
-        denominator = denominator * 10;
-    }
-    this->mone = sign * val; //sign is applied on the mone of the number
-    this->mechane = denominator;
 
-} 
-
-Fraction Fraction::operator+(const Fraction& other) const {
-    return 1/2;
+    // Set the numerator and denominator
+    this->mone = sign * val;
+    this->mechane = den;
 }
 
-Fraction Fraction::operator-(const Fraction& other) const {
-    return 1/2;
+// binary operators
+Fraction Fraction::operator+ (Fraction& other) const{
+    return Fraction(0,1);
+}
+
+Fraction Fraction::operator- (Fraction& other) const{
+        return Fraction(0,1);
 
 }
 
-Fraction Fraction::operator/(const Fraction& other) const {
-    return 1/2;
+Fraction Fraction::operator* (Fraction& other) const{
+        return Fraction(0,1);
 
 }
 
-Fraction Fraction::operator*(const Fraction& other) const {
-    retrun 1/2;
+Fraction Fraction::operator/ (Fraction& other) const{
+        return Fraction(0,1);
+
 }
 
-bool Fraction::operator>(const Fraction& other) const {
+// comparison operators
+bool Fraction::operator> (Fraction& other) const{
     return false;
 }
 
-bool Fraction::operator<(const Fraction& other) const {
+bool Fraction::operator< (Fraction& other) const{
     return false;
 }
 
-bool Fraction::operator>=(const Fraction& other) const {
+bool Fraction::operator>= (Fraction& other) const{
     return false;
 }
 
-bool Fraction::operator<=(const Fraction& other) const {
+bool Fraction::operator<= (Fraction& other) const{
     return false;
 }
 
-Fraction& Fraction::operator++() {
+// increment and decrement operators
+Fraction& Fraction::operator++(){
     mone += mechane;
     return *this;
 }
 
-Fraction& Fraction::operator--() {
+const Fraction Fraction::operator++(int dummy_flag_for_postfix_increment){
+    return *this;
+}
+
+Fraction& Fraction::operator--(){
     mone -= mechane;
     return *this;
 }
 
-Fraction Fraction::operator++(int) {
-    return 1/2;
+const Fraction Fraction::operator--(int dummy_flag_for_postfix_decrement){
+    return *this;
 }
 
-Fraction Fraction::operator--(int) {
-    return 1/2;
-}
-
-bool operator==(const Fraction& frac1, const Fraction& frac2) {
+// friend global comparison operators
+bool ariel::operator> (float f1, const Fraction& f2){
     return false;
 }
 
-Fraction operator+(float frac1, const Fraction& frac2) {
-    return 1/2;
-}
-
-Fraction operator-(float frac1, const Fraction& frac2) {
-    return 1/2;
-}
-
-Fraction operator*(float frac1, const Fraction& frac2) {
-    return 1/2;
-}
-
-Fraction operator/(float frac1, const Fraction& frac2) {
-    return 1/2;
-}
-
-Fraction operator+(const Fraction& frac2, float frac1) {
-    return 1/2;
-}
-
-Fraction operator-(const Fraction& frac2, float frac1) {
-    return 1/2;
-}
-
-Fraction operator*(const Fraction& frac2, float frac1) {
-     return 1/2;
-}
-
-Fraction operator/(const Fraction& frac2, float frac1) {
-    return 1/2;
-}
-
-bool operator>(float frac1, const Fraction& frac2) {
+bool ariel::operator< (float f1, const Fraction& f2){
     return false;
 }
 
-bool operator<(float frac1, const Fraction& frac2) {
+bool ariel::operator>= (float f1, const Fraction& f2){
     return false;
 }
 
-bool operator>=(float frac1, const Fraction& frac2) {
+bool ariel::operator<= (float f1, const Fraction& f2){
     return false;
 }
 
-bool operator<=(float frac1, const Fraction& frac2) {
+bool ariel::operator> (const Fraction& f2, float f1){
     return false;
 }
 
-bool operator>(const Fraction& frac2, float frac1) {
+bool ariel::operator< (const Fraction& f2, float f1){
+    return false;
+}
+
+bool ariel::operator>= (const Fraction& f2, float f1){
      return false;
+
 }
 
-bool operator<(const Fraction& frac2, float frac1) {
+bool ariel::operator<= (const Fraction& f2, float f1){
+    return false;
+
+}
+
+// friend global binary operators
+bool ariel::operator== (const Fraction& f1, const Fraction& f2){
     return false;
 }
 
-bool operator>=(const Fraction& frac2, float frac1) {
-    return false;
+Fraction ariel::operator+ (float f1, const Fraction& f2){
+    return Fraction(0,1);
 }
 
-bool operator<=(const Fraction& frac2, float frac1) {
-    return false;
+Fraction ariel::operator- (float f1, const Fraction& f2){
+    return Fraction(0,1);
+}
+
+Fraction ariel::operator* (float f1, const Fraction& f2){
+    return Fraction(0,1);
+}
+Fraction ariel::operator/ (float f1, const Fraction& f2){
+    return Fraction(0,1);
+}
+
+Fraction ariel::operator+ (const Fraction& f2, float f1){
+    return Fraction(0,1);
+}
+
+Fraction ariel::operator- (const Fraction& f2, float f1){
+    return Fraction(0,1);
+}
+
+Fraction ariel::operator* (const Fraction& f2, float f1){
+    return Fraction(0,1);
+}
+
+Fraction ariel::operator/ (const Fraction& f2, float f1){
+    return Fraction(0,1);
+}
+
+// friend global IO operators
+std::ostream& ariel::operator<< (std::ostream& output, const Fraction& f){
+    // Output the fraction to the output stream in the format "numerator/denominator"
+    output << f.getMone() << "/" << f.getMechane();
+    return output;
+}
+
+std::istream& ariel::operator>> (std::istream& input, const Fraction& f){
+    // Read the fraction from the input stream in the format "numerator/denominator"
+    return input;
+}
+
+int Fraction::getMone() const{
+    return this->mone;
+}
+
+int Fraction::getMechane() const{
+    return this->mechane;
+}
+
+float ariel::FractionToFloat(const Fraction& a){
+    float numerator_a = (float)a.getMone();
+    float denominator_a = (float)a.getMechane();
+    float fraction_float = numerator_a/denominator_a;
+    return round(fraction_float*1000)/1000;
 }
