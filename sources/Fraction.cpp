@@ -10,7 +10,7 @@ Fraction::Fraction(int numerator, int denominator) : mone(numerator) , mechane(d
     }
 } 
 
-//anothe constructor that take a float and convert it to fraction
+//another constructor that take a float and convert it to fraction
 Fraction::Fraction(float num){
     int sign = 0;
     if (num < 0){
@@ -31,3 +31,123 @@ Fraction::Fraction(float num){
     this->mechane = denominator;
 
 } 
+
+Fraction Fraction::operator+(const Fraction& other) const {
+    return 1/2;
+}
+
+Fraction Fraction::operator-(const Fraction& other) const {
+    return 1/2;
+
+}
+
+Fraction Fraction::operator/(const Fraction& other) const {
+    return 1/2;
+
+}
+
+Fraction Fraction::operator*(const Fraction& other) const {
+    retrun 1/2;
+}
+
+bool Fraction::operator>(const Fraction& other) const {
+    return false;
+}
+
+bool Fraction::operator<(const Fraction& other) const {
+    return false;
+}
+
+bool Fraction::operator>=(const Fraction& other) const {
+    return false;
+}
+
+bool Fraction::operator<=(const Fraction& other) const {
+    return false;
+}
+
+Fraction& Fraction::operator++() {
+    mone += mechane;
+    return *this;
+}
+
+Fraction& Fraction::operator--() {
+    mone -= mechane;
+    return *this;
+}
+
+Fraction Fraction::operator++(int) {
+    return 1/2;
+}
+
+Fraction Fraction::operator--(int) {
+    return 1/2;
+}
+
+bool operator==(const Fraction& frac1, const Fraction& frac2) {
+    return false;
+}
+
+Fraction operator+(float frac1, const Fraction& frac2) {
+    return 1/2;
+}
+
+Fraction operator-(float frac1, const Fraction& frac2) {
+    return 1/2;
+}
+
+Fraction operator*(float frac1, const Fraction& frac2) {
+    return 1/2;
+}
+
+Fraction operator/(float frac1, const Fraction& frac2) {
+    return 1/2;
+}
+
+Fraction operator+(const Fraction& frac2, float frac1) {
+    return 1/2;
+}
+
+Fraction operator-(const Fraction& frac2, float frac1) {
+    return 1/2;
+}
+
+Fraction operator*(const Fraction& frac2, float frac1) {
+     return 1/2;
+}
+
+Fraction operator/(const Fraction& frac2, float frac1) {
+    return 1/2;
+}
+
+bool operator>(float frac1, const Fraction& frac2) {
+    return false;
+}
+
+bool operator<(float frac1, const Fraction& frac2) {
+    return false;
+}
+
+bool operator>=(float frac1, const Fraction& frac2) {
+    return false;
+}
+
+bool operator<=(float frac1, const Fraction& frac2) {
+    return false;
+}
+
+bool operator>(const Fraction& frac2, float frac1) {
+     return false;
+}
+
+bool operator<(const Fraction& frac2, float frac1) {
+    return false;
+}
+
+bool operator>=(const Fraction& frac2, float frac1) {
+    return false;
+}
+
+bool operator<=(const Fraction& frac2, float frac1) {
+    return false;
+}
