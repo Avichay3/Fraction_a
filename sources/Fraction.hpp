@@ -19,8 +19,8 @@ namespace ariel{
         /* getters and setters to the members */
         int getMone() const;
         int getMechane() const;
-        void setMone(int) const;
-        void setMechane(int) const;
+        void setMone(int) ;
+        void setMechane(int) ;
 
         
         friend float FractionToFloat(const Fraction& a);

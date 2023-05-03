@@ -11,22 +11,37 @@ Fraction::Fraction(int numerator, int denominator) : mone(numerator), mechane(de
     }
 }
 
-Fraction::Fraction(float num){
-     // Convert the float to a fraction
+Fraction::Fraction(float num) {
+    // Convert float to fraction
     int sign = (num < 0) ? -1 : 1;
-    int whole = floor(num);
+    int whole = static_cast<int>(num);
     num -= whole;
-    int val = round(num * MAX_NUM);
-    int den = MAX_NUM;
-
-    // Add the whole part if there is one
-    if (whole != 0) {
-        val += whole * den;
+    // find the denominator by multiplying by powers of 10
+    int denominator = 1;
+    while (std::abs(num * denominator - static_cast<int>(num * denominator)) > 1e-6) {
+        denominator *= 10;
     }
+    // set the numerator and denominator
+    int numerator = static_cast<int>(num * denominator);
+    mone = sign * (whole * denominator + numerator);
+    mechane = denominator;
+}
 
-    // Set the numerator and denominator
-    this->mone = sign * val;
-    this->mechane = den;
+//getters and setters
+int Fraction::getMone() const{
+    return this->mone;
+}
+
+int Fraction::getMechane() const{
+    return this->mechane;
+}
+
+void Fraction::setMone(int _mone) {
+    this->mone = _mone;
+}
+
+void Fraction::setMechane(int _mechane) {
+    this->mechane = _mechane;
 }
 
 // binary operators
@@ -72,7 +87,7 @@ Fraction& Fraction::operator++(){
     return *this;
 }
 
-const Fraction Fraction::operator++(int dummy_flag_for_postfix_increment){
+const Fraction Fraction::operator++(int){
     return *this;
 }
 
@@ -81,7 +96,7 @@ Fraction& Fraction::operator--(){
     return *this;
 }
 
-const Fraction Fraction::operator--(int dummy_flag_for_postfix_decrement){
+const Fraction Fraction::operator--(int){
     return *this;
 }
 
@@ -156,29 +171,21 @@ Fraction ariel::operator/ (const Fraction& f2, float f1){
     return Fraction(0,1);
 }
 
-// friend global IO operators
-std::ostream& ariel::operator<< (std::ostream& output, const Fraction& f){
-    // Output the fraction to the output stream in the format "numerator/denominator"
-    output << f.getMone() << "/" << f.getMechane();
+//input output operators
+std::ostream& ariel::operator<< (std::ostream& output, const Fraction& a){
+    // Output the fraction to the output stream
+    output << a.getMone() << "/" << a.getMechane();
     return output;
 }
 
 std::istream& ariel::operator>> (std::istream& input, const Fraction& f){
-    // Read the fraction from the input stream in the format "numerator/denominator"
+    // read the fraction from the input stream
     return input;
 }
 
-int Fraction::getMone() const{
-    return this->mone;
-}
 
-int Fraction::getMechane() const{
-    return this->mechane;
-}
-
-float ariel::FractionToFloat(const Fraction& a){
-    float numerator_a = (float)a.getMone();
-    float denominator_a = (float)a.getMechane();
-    float fraction_float = numerator_a/denominator_a;
-    return round(fraction_float*1000)/1000;
+float ariel::FractionToFloat(const Fraction& a) {
+    float fraction_float = static_cast<float>(a.getMone()) / static_cast<float>(a.getMechane());
+    float rounded_float = static_cast<float>(static_cast<int>(fraction_float * 1000)) / 1000;
+    return rounded_float;
 }
